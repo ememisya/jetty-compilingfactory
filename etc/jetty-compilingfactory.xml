@@ -1,0 +1,2810 @@
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_3.dtd">
+
+<!-- =========================================================================== -->
+<!-- Load the CompilingClassFactory                                              -->
+<!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+<!-- =========================================================================== -->
+<Configure id="Server" class="org.eclipse.jetty.server.Server">
+
+<!-- declare types -->
+<Call id="objectArrayClass" class="java.lang.Class" name="forName">
+  <Arg>[Ljava.lang.Object;</Arg>
+</Call>
+<Call id="stringArrayClass" class="java.lang.Class" name="forName">
+  <Arg>[Ljava.lang.String;</Arg>
+</Call>
+<Call id="objectClass" class="java.lang.Class" name="forName">
+  <Arg>java.lang.Object</Arg>
+</Call>
+<Call id="methodVisitorClass" class="java.lang.Class" name="forName">
+  <Arg>jdk.internal.org.objectweb.asm.MethodVisitor</Arg>
+</Call>
+<Call id="fieldVisitorClass" class="java.lang.Class" name="forName">
+  <Arg>jdk.internal.org.objectweb.asm.FieldVisitor</Arg>
+</Call>
+<Call id="integerClass" class="java.lang.Class" name="forName">
+  <Arg>java.lang.Integer</Arg>
+</Call>
+<Call id="stringClass" class="java.lang.Class" name="forName">
+  <Arg>java.lang.String</Arg>
+</Call>
+<Call id="booleanClass" class="java.lang.Class" name="forName">
+  <Arg>java.lang.Boolean</Arg>
+</Call>
+<Call id="typePathClass" class="java.lang.Class" name="forName">
+  <Arg>jdk.internal.org.objectweb.asm.TypePath</Arg>
+</Call>
+<Call id="attributeClass" class="java.lang.Class" name="forName">
+  <Arg>jdk.internal.org.objectweb.asm.Attribute</Arg>
+</Call>
+<Call id="labelClass" class="java.lang.Class" name="forName">
+  <Arg>jdk.internal.org.objectweb.asm.Label</Arg>
+</Call>
+<Ref refid="integerClass">
+  <Call id="integerPrimitiveField" name="getField">
+     <Arg>TYPE</Arg>
+  </Call>
+</Ref>
+<Ref refid="integerPrimitiveField">
+  <Call id="integerPrimitive" name="get">
+    <Arg></Arg>
+  </Call>
+</Ref>
+<Ref refid="booleanClass">
+  <Call id="booleanPrimitiveField" name="getField">
+     <Arg>TYPE</Arg>
+  </Call>
+</Ref>
+<Ref refid="booleanPrimitiveField">
+  <Call id="booleanPrimitive" name="get">
+    <Arg></Arg>
+  </Call>
+</Ref>
+
+
+<!-- declare fieldVisitor methods -->
+<Ref refid="fieldVisitorClass">
+  <Call id="fv.visitEnd" name="getMethod">
+    <Arg>visitEnd</Arg>
+    <Arg></Arg>
+  </Call>
+</Ref>
+
+<!-- declare methodVisitor methods -->
+<Ref refid="methodVisitorClass">
+  <Call id="mv.visitCode" name="getMethod">
+    <Arg>visitCode</Arg>
+    <Arg></Arg>
+  </Call>
+  <Call id="mv.visitVarInsn" name="getMethod">
+    <Arg>visitVarInsn</Arg>
+    <Arg>
+      <Array type="java.lang.Class">
+        <Item><Ref refid="integerPrimitive"/></Item>
+        <Item><Ref refid="integerPrimitive"/></Item>
+      </Array>
+    </Arg>
+  </Call>
+  <Call id="mv.visitIntInsn" name="getMethod">
+    <Arg>visitIntInsn</Arg>
+    <Arg>
+      <Array type="java.lang.Class">
+        <Item><Ref refid="integerPrimitive"/></Item>
+        <Item><Ref refid="integerPrimitive"/></Item>
+      </Array>
+    </Arg>
+  </Call>
+  <Call id="mv.visitFieldInsn" name="getMethod">
+    <Arg>visitFieldInsn</Arg>
+    <Arg>
+      <Array type="java.lang.Class">
+        <Item><Ref refid="integerPrimitive"/></Item>
+        <Item><Ref refid="stringClass"/></Item>
+        <Item><Ref refid="stringClass"/></Item>
+        <Item><Ref refid="stringClass"/></Item>
+      </Array>
+    </Arg>
+  </Call>
+  <Call id="mv.visitMethodInsn" name="getMethod">
+    <Arg>visitMethodInsn</Arg>
+    <Arg>
+      <Array type="java.lang.Class">
+        <Item><Ref refid="integerPrimitive"/></Item>
+        <Item><Ref refid="stringClass"/></Item>
+        <Item><Ref refid="stringClass"/></Item>
+        <Item><Ref refid="stringClass"/></Item>
+        <Item><Ref refid="booleanPrimitive"/></Item>
+      </Array>
+    </Arg>
+  </Call>
+  <Call id="mv.visitInsn" name="getMethod">
+    <Arg>visitInsn</Arg>
+    <Arg>
+      <Array type="java.lang.Class">
+        <Item><Ref refid="integerPrimitive"/></Item>
+      </Array>
+    </Arg>
+  </Call>
+  <Call id="mv.visitMaxs" name="getMethod">
+    <Arg>visitMaxs</Arg>
+    <Arg>
+      <Array type="java.lang.Class">
+        <Item><Ref refid="integerPrimitive"/></Item>
+        <Item><Ref refid="integerPrimitive"/></Item>
+      </Array>
+    </Arg>
+  </Call>
+  <Call id="mv.visitEnd" name="getMethod">
+    <Arg>visitEnd</Arg>
+    <Arg></Arg>
+  </Call>
+  <Call id="mv.visitTryCatchBlock" name="getMethod">
+    <Arg>visitTryCatchBlock</Arg>
+    <Arg>
+      <Array type="java.lang.Class">
+        <Item><Ref refid="labelClass"/></Item>
+        <Item><Ref refid="labelClass"/></Item>
+        <Item><Ref refid="labelClass"/></Item>
+        <Item><Ref refid="stringClass"/></Item>
+      </Array>
+    </Arg>
+  </Call>
+  <Call id="mv.visitLabel" name="getMethod">
+    <Arg>visitLabel</Arg>
+    <Arg>
+      <Array type="java.lang.Class">
+        <Item><Ref refid="labelClass"/></Item>
+      </Array>
+    </Arg>
+  </Call>
+  <Call id="mv.visitTypeInsn" name="getMethod">
+    <Arg>visitTypeInsn</Arg>
+    <Arg>
+      <Array type="java.lang.Class">
+        <Item><Ref refid="integerPrimitive"/></Item>
+        <Item><Ref refid="stringClass"/></Item>
+      </Array>
+    </Arg>
+  </Call>
+  <Call id="mv.visitLdcInsn" name="getMethod">
+    <Arg>visitLdcInsn</Arg>
+    <Arg>
+      <Array type="java.lang.Class">
+        <Item><Ref refid="objectClass"/></Item>
+      </Array>
+    </Arg>
+  </Call>
+  <Call id="mv.visitJumpInsn" name="getMethod">
+    <Arg>visitJumpInsn</Arg>
+    <Arg>
+      <Array type="java.lang.Class">
+        <Item><Ref refid="integerPrimitive"/></Item>
+        <Item><Ref refid="labelClass"/></Item>
+      </Array>
+    </Arg>
+  </Call>
+  <Call id="mv.visitFrame" name="getMethod">
+    <Arg>visitFrame</Arg>
+    <Arg>
+      <Array type="java.lang.Class">
+        <Item><Ref refid="integerPrimitive"/></Item>
+        <Item><Ref refid="integerPrimitive"/></Item>
+        <Item><Ref refid="objectArrayClass"/></Item>
+        <Item><Ref refid="integerPrimitive"/></Item>
+        <Item><Ref refid="objectArrayClass"/></Item>
+      </Array>
+    </Arg>
+  </Call>
+  <Call id="mv.visitAnnotationDefault" name="getMethod">
+    <Arg>visitAnnotationDefault</Arg>
+    <Arg></Arg>
+  </Call>
+  <Call id="mv.visitLineNumber" name="getMethod">
+    <Arg>visitLineNumber</Arg>
+    <Arg>
+      <Array type="java.lang.Class">
+        <Item><Ref refid="integerPrimitive"/></Item>
+        <Item><Ref refid="labelClass"/></Item>
+      </Array>
+    </Arg>
+  </Call>
+</Ref>
+
+<Call id="pathClass" class="java.lang.Class" name="forName">
+  <Arg>java.nio.file.Path</Arg>
+</Call>
+
+<Call id="fileSystemClass" class="java.lang.Class" name="forName">
+  <Arg>java.nio.file.FileSystem</Arg>
+</Call>
+
+<Ref refid="fileSystemClass">
+  <Call id="fileSystem.getPath" name="getMethod">
+    <Arg>getPath</Arg>
+    <Arg>
+      <Array type="java.lang.Class">
+        <Item><Ref refid="stringClass"/></Item>
+        <Item><Ref refid="stringArrayClass"/></Item>
+      </Array>
+    </Arg>
+  </Call>
+
+</Ref>
+
+<Ref refid="pathClass">
+  <Call id="path.toFile" name="getMethod">
+    <Arg>toFile</Arg>
+    <Arg></Arg>
+  </Call>
+
+  <Call id="path.toUri" name="getMethod">
+    <Arg>toUri</Arg>
+    <Arg></Arg>
+  </Call>
+</Ref>
+
+
+<!-- LocalJavaFileObject -->
+
+<New id="cw" class="jdk.internal.org.objectweb.asm.ClassWriter">
+  <Arg type="int">0</Arg>
+</New>
+<!-- init class -->
+<Ref refid="cw">
+  <Call name="visit">
+    <Arg type="int">52</Arg>
+    <Arg type="int">33</Arg>
+    <Arg>edu/vt/middleware/jetty/ext/LocalJavaFileObject</Arg>
+    <Arg></Arg>
+    <Arg>javax/tools/SimpleJavaFileObject</Arg>
+    <Arg></Arg>
+  </Call>
+</Ref>
+<Ref refid="cw">
+  <Call name="visitInnerClass">
+    <Arg>javax/tools/JavaFileObject$Kind</Arg>
+    <Arg>javax/tools/JavaFileObject</Arg>
+    <Arg>Kind</Arg>
+    <Arg type="int">16409</Arg>
+  </Call>
+</Ref>
+
+
+<Ref refid="cw">
+    <Call id="fv" name="visitField">
+        <Arg type="int">18</Arg>
+        <Arg type="string">contents</Arg>
+        <Arg type="string">Ljava/lang/String;</Arg>
+        <Arg></Arg>
+        <Arg></Arg>
+    </Call>
+</Ref>
+
+<Ref refid="fv.visitEnd">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="fv" />
+        </Arg>
+    </Call>
+</Ref>
+
+<!-- set methodwriter -->
+<Ref refid="cw">
+    <Call id="mw" name="visitMethod">
+        <Arg type="int">1</Arg>
+        <Arg type="string">&lt;init&gt;</Arg>
+        <Arg type="string">(Ljava/lang/String;Ljava/lang/String;)V</Arg>
+        <Arg></Arg>
+        <Arg></Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitCode">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitVarInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">25</Item>
+                <Item type="int">0</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitTypeInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">187</Item>
+                <Item type="string">java/lang/StringBuilder</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">89</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMethodInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">183</Item>
+                <Item type="string">java/lang/StringBuilder</Item>
+                <Item type="string">&lt;init&gt;</Item>
+                <Item type="string">()V</Item>
+                <Item type="boolean">false</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitLdcInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="string">string:///</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMethodInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">182</Item>
+                <Item type="string">java/lang/StringBuilder</Item>
+                <Item type="string">append</Item>
+                <Item type="string">(Ljava/lang/String;)Ljava/lang/StringBuilder;</Item>
+                <Item type="boolean">false</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitVarInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">25</Item>
+                <Item type="int">1</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitIntInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">16</Item>
+                <Item type="int">46</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitIntInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">16</Item>
+                <Item type="int">47</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMethodInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">182</Item>
+                <Item type="string">java/lang/String</Item>
+                <Item type="string">replace</Item>
+                <Item type="string">(CC)Ljava/lang/String;</Item>
+                <Item type="boolean">false</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMethodInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">182</Item>
+                <Item type="string">java/lang/StringBuilder</Item>
+                <Item type="string">append</Item>
+                <Item type="string">(Ljava/lang/String;)Ljava/lang/StringBuilder;</Item>
+                <Item type="boolean">false</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitFieldInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">178</Item>
+                <Item type="string">javax/tools/JavaFileObject$Kind</Item>
+                <Item type="string">SOURCE</Item>
+                <Item type="string">Ljavax/tools/JavaFileObject$Kind;</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitFieldInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">180</Item>
+                <Item type="string">javax/tools/JavaFileObject$Kind</Item>
+                <Item type="string">extension</Item>
+                <Item type="string">Ljava/lang/String;</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMethodInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">182</Item>
+                <Item type="string">java/lang/StringBuilder</Item>
+                <Item type="string">append</Item>
+                <Item type="string">(Ljava/lang/String;)Ljava/lang/StringBuilder;</Item>
+                <Item type="boolean">false</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMethodInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">182</Item>
+                <Item type="string">java/lang/StringBuilder</Item>
+                <Item type="string">toString</Item>
+                <Item type="string">()Ljava/lang/String;</Item>
+                <Item type="boolean">false</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMethodInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">184</Item>
+                <Item type="string">java/net/URI</Item>
+                <Item type="string">create</Item>
+                <Item type="string">(Ljava/lang/String;)Ljava/net/URI;</Item>
+                <Item type="boolean">false</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitFieldInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">178</Item>
+                <Item type="string">javax/tools/JavaFileObject$Kind</Item>
+                <Item type="string">SOURCE</Item>
+                <Item type="string">Ljavax/tools/JavaFileObject$Kind;</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMethodInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">183</Item>
+                <Item type="string">javax/tools/SimpleJavaFileObject</Item>
+                <Item type="string">&lt;init&gt;</Item>
+                <Item type="string">(Ljava/net/URI;Ljavax/tools/JavaFileObject$Kind;)V</Item>
+                <Item type="boolean">false</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitVarInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">25</Item>
+                <Item type="int">0</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitVarInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">25</Item>
+                <Item type="int">2</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitFieldInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">181</Item>
+                <Item type="string">edu/vt/middleware/jetty/ext/LocalJavaFileObject</Item>
+                <Item type="string">contents</Item>
+                <Item type="string">Ljava/lang/String;</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">177</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMaxs">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">5</Item>
+                <Item type="int">3</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitEnd">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+    </Call>
+</Ref>
+<!-- set methodwriter -->
+<Ref refid="cw">
+    <Call id="mw" name="visitMethod">
+        <Arg type="int">1</Arg>
+        <Arg type="string">getCharContent</Arg>
+        <Arg type="string">(Z)Ljava/lang/CharSequence;</Arg>
+        <Arg></Arg>
+        <Arg type="int">
+	  <Array type="java.lang.String">
+            <Item type="string">java/io/IOException</Item>
+	  </Array>
+	</Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitCode">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitVarInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">25</Item>
+                <Item type="int">0</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitFieldInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">180</Item>
+                <Item type="string">edu/vt/middleware/jetty/ext/LocalJavaFileObject</Item>
+                <Item type="string">contents</Item>
+                <Item type="string">Ljava/lang/String;</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">176</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMaxs">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">1</Item>
+                <Item type="int">2</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitEnd">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+    </Call>
+</Ref>
+
+<!-- end class -->
+<Ref refid="cw">
+  <Call name="visitEnd">
+  </Call>
+</Ref>
+
+<!-- copy to byte array -->
+<Ref refid="cw">
+  <Call id="localJavaFileObject" name="toByteArray">
+  </Call>
+</Ref>
+
+<!-- CompilingClassFactory -->
+
+<New id="cw" class="jdk.internal.org.objectweb.asm.ClassWriter">
+  <Arg type="int">0</Arg>
+</New>
+<!-- init class -->
+<Ref refid="cw">
+  <Call name="visit">
+    <Arg type="int">52</Arg>
+    <Arg type="int">33</Arg>
+    <Arg>edu/vt/middleware/jetty/ext/CompilingClassFactory</Arg>
+    <Arg></Arg>
+    <Arg>java/lang/Object</Arg>
+    <Arg></Arg>
+  </Call>
+</Ref>
+<Ref refid="cw">
+  <Call name="visitInnerClass">
+    <Arg>javax/tools/JavaCompiler$CompilationTask</Arg>
+    <Arg>javax/tools/JavaCompiler</Arg>
+    <Arg>CompilationTask</Arg>
+    <Arg type="int">1545</Arg>
+  </Call>
+</Ref>
+
+<Ref refid="cw">
+    <Call id="fv" name="visitField">
+        <Arg type="int">26</Arg>
+        <Arg type="string">compiler</Arg>
+        <Arg type="string">Ljavax/tools/JavaCompiler;</Arg>
+        <Arg></Arg>
+        <Arg></Arg>
+    </Call>
+</Ref>
+
+<Ref refid="fv.visitEnd">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="fv" />
+        </Arg>
+    </Call>
+</Ref>
+
+<!-- Labels -->
+<New id="lx" class="jdk.internal.org.objectweb.asm.Label" />
+<New id="l0" class="jdk.internal.org.objectweb.asm.Label" />
+<New id="l1" class="jdk.internal.org.objectweb.asm.Label" />
+<New id="l2" class="jdk.internal.org.objectweb.asm.Label" />
+<New id="l3" class="jdk.internal.org.objectweb.asm.Label" />
+<New id="l4" class="jdk.internal.org.objectweb.asm.Label" />
+
+
+<!-- set methodwriter -->
+<Ref refid="cw">
+    <Call id="mw" name="visitMethod">
+        <Arg type="int">10</Arg>
+        <Arg type="string">compile</Arg>
+        <Arg type="string">(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V</Arg>
+        <Arg></Arg>
+        <Arg></Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitCode">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitFieldInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">178</Item>
+                <Item type="string">edu/vt/middleware/jetty/ext/CompilingClassFactory</Item>
+                <Item type="string">compiler</Item>
+                <Item type="string">Ljavax/tools/JavaCompiler;</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">1</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">1</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">1</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMethodInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">185</Item>
+                <Item type="string">javax/tools/JavaCompiler</Item>
+                <Item type="string">getStandardFileManager</Item>
+                <Item type="string">(Ljavax/tools/DiagnosticListener;Ljava/util/Locale;Ljava/nio/charset/Charset;)Ljavax/tools/StandardJavaFileManager;</Item>
+                <Item type="boolean">true</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitVarInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">58</Item>
+                <Item type="int">3</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitFieldInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">178</Item>
+                <Item type="string">edu/vt/middleware/jetty/ext/CompilingClassFactory</Item>
+                <Item type="string">compiler</Item>
+                <Item type="string">Ljavax/tools/JavaCompiler;</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">1</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitVarInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">25</Item>
+                <Item type="int">3</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">1</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">5</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitTypeInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">189</Item>
+                <Item type="string">java/lang/String</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">89</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">3</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitLdcInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="string">-d</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">83</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">89</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">4</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitVarInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">25</Item>
+                <Item type="int">2</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">83</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMethodInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">184</Item>
+                <Item type="string">java/util/Arrays</Item>
+                <Item type="string">asList</Item>
+                <Item type="string">([Ljava/lang/Object;)Ljava/util/List;</Item>
+                <Item type="boolean">false</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">1</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">4</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitTypeInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">189</Item>
+                <Item type="string">edu/vt/middleware/jetty/ext/LocalJavaFileObject</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">89</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">3</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitTypeInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">187</Item>
+                <Item type="string">edu/vt/middleware/jetty/ext/LocalJavaFileObject</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">89</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitVarInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">25</Item>
+                <Item type="int">1</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitVarInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">25</Item>
+                <Item type="int">0</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMethodInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">183</Item>
+                <Item type="string">edu/vt/middleware/jetty/ext/LocalJavaFileObject</Item>
+                <Item type="string">&lt;init&gt;</Item>
+                <Item type="string">(Ljava/lang/String;Ljava/lang/String;)V</Item>
+                <Item type="boolean">false</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">83</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMethodInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">184</Item>
+                <Item type="string">java/util/Arrays</Item>
+                <Item type="string">asList</Item>
+                <Item type="string">([Ljava/lang/Object;)Ljava/util/List;</Item>
+                <Item type="boolean">false</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMethodInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">185</Item>
+                <Item type="string">javax/tools/JavaCompiler</Item>
+                <Item type="string">getTask</Item>
+                <Item type="string">(Ljava/io/Writer;Ljavax/tools/JavaFileManager;Ljavax/tools/DiagnosticListener;Ljava/lang/Iterable;Ljava/lang/Iterable;Ljava/lang/Iterable;)Ljavax/tools/JavaCompiler$CompilationTask;</Item>
+                <Item type="boolean">true</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMethodInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">185</Item>
+                <Item type="string">javax/tools/JavaCompiler$CompilationTask</Item>
+                <Item type="string">call</Item>
+                <Item type="string">()Ljava/lang/Boolean;</Item>
+                <Item type="boolean">true</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMethodInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">182</Item>
+                <Item type="string">java/lang/Boolean</Item>
+                <Item type="string">booleanValue</Item>
+                <Item type="string">()Z</Item>
+                <Item type="boolean">false</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitJumpInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">154</Item>
+                <Item ><Ref refid="lx"/></Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitTypeInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">187</Item>
+                <Item type="string">java/lang/IllegalArgumentException</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">89</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitLdcInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="string">Could not compile class source</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMethodInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">183</Item>
+                <Item type="string">java/lang/IllegalArgumentException</Item>
+                <Item type="string">&lt;init&gt;</Item>
+                <Item type="string">(Ljava/lang/String;)V</Item>
+                <Item type="boolean">false</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">191</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitLabel">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item ><Ref refid="lx"/></Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitFrame">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">1</Item>
+                <Item type="int">1</Item>
+                <Item>
+		  <Array type="java.lang.Object">
+                    <Item>javax/tools/StandardJavaFileManager</Item>
+	          </Array>
+		</Item>
+                <Item type="int">0</Item>
+                <Item></Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">177</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMaxs">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">13</Item>
+                <Item type="int">4</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitEnd">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+    </Call>
+</Ref>
+<!-- set methodwriter -->
+<Ref refid="cw">
+    <Call id="mw" name="visitMethod">
+        <Arg type="int">2</Arg>
+        <Arg type="string">&lt;init&gt;</Arg>
+        <Arg type="string">()V</Arg>
+        <Arg></Arg>
+        <Arg></Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitCode">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitVarInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">25</Item>
+                <Item type="int">0</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMethodInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">183</Item>
+                <Item type="string">java/lang/Object</Item>
+                <Item type="string">&lt;init&gt;</Item>
+                <Item type="string">()V</Item>
+                <Item type="boolean">false</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">177</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMaxs">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">1</Item>
+                <Item type="int">1</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitEnd">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+    </Call>
+</Ref>
+<!-- set methodwriter -->
+<Ref refid="cw">
+    <Call id="mw" name="visitMethod">
+        <Arg type="int">9</Arg>
+        <Arg type="string">loadClass</Arg>
+        <Arg type="string">(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/Class;</Arg>
+        <Arg type="string">(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/Class&lt;*&gt;;</Arg>
+        <Arg type="int">             
+	   <Array type="java.lang.String">
+             <Item type="string">java/lang/IllegalStateException</Item>
+	   </Array>
+	</Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitCode">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">1</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitVarInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">25</Item>
+                <Item type="int">0</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitVarInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">25</Item>
+                <Item type="int">1</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMethodInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">184</Item>
+                <Item type="string">edu/vt/middleware/jetty/ext/CompilingClassFactory</Item>
+                <Item type="string">loadClass</Item>
+                <Item type="string">(Ljava/lang/ClassLoader;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/Class;</Item>
+                <Item type="boolean">false</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">176</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMaxs">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">3</Item>
+                <Item type="int">2</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitEnd">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+    </Call>
+</Ref>
+<!-- set methodwriter -->
+<Ref refid="cw">
+    <Call id="mw" name="visitMethod">
+        <Arg type="int">9</Arg>
+        <Arg type="string">loadClass</Arg>
+        <Arg type="string">(Ljava/lang/ClassLoader;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/Class;</Arg>
+        <Arg type="string">(Ljava/lang/ClassLoader;Ljava/lang/String;Ljava/lang/String;)Ljava/lang/Class&lt;*&gt;;</Arg>
+        <Arg type="int">
+	  <Array type="java.lang.String">
+             <Item type="string">java/lang/IllegalStateException</Item>
+	  </Array>
+	</Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitCode">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitTryCatchBlock">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item ><Ref refid="l0"/></Item>
+                <Item ><Ref refid="l1"/></Item>
+                <Item ><Ref refid="l2"/></Item>
+                <Item type="string">java/io/IOException</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitTryCatchBlock">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item ><Ref refid="l0"/></Item>
+                <Item ><Ref refid="l1"/></Item>
+                <Item ><Ref refid="l2"/></Item>
+                <Item type="string">java/lang/ClassNotFoundException</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitTryCatchBlock">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item ><Ref refid="l3"/></Item>
+                <Item ><Ref refid="l4"/></Item>
+                <Item ><Ref refid="l2"/></Item>
+                <Item type="string">java/io/IOException</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitTryCatchBlock">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item ><Ref refid="l3"/></Item>
+                <Item ><Ref refid="l4"/></Item>
+                <Item ><Ref refid="l2"/></Item>
+                <Item type="string">java/lang/ClassNotFoundException</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitFieldInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">178</Item>
+                <Item type="string">edu/vt/middleware/jetty/ext/CompilingClassFactory</Item>
+                <Item type="string">compiler</Item>
+                <Item type="string">Ljavax/tools/JavaCompiler;</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitJumpInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">199</Item>
+                <Item ><Ref refid="l0"/></Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitTypeInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">187</Item>
+                <Item type="string">java/lang/IllegalStateException</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">89</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitLdcInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="string">This JVM envrionment does not contain a configured system compiler (ex: JDK)</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMethodInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">183</Item>
+                <Item type="string">java/lang/IllegalStateException</Item>
+                <Item type="string">&lt;init&gt;</Item>
+                <Item type="string">(Ljava/lang/String;)V</Item>
+                <Item type="boolean">false</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">191</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitLabel">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item ><Ref refid="l0"/></Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitFrame">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">3</Item>
+                <Item type="int">0</Item>
+                <Item></Item>
+                <Item type="int">0</Item>
+                <Item></Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitLdcInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="string">dynacomp_tmp</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">3</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitTypeInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">189</Item>
+                <Item type="string">java/nio/file/attribute/FileAttribute</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMethodInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">184</Item>
+                <Item type="string">java/nio/file/Files</Item>
+                <Item type="string">createTempDirectory</Item>
+                <Item type="string">(Ljava/lang/String;[Ljava/nio/file/attribute/FileAttribute;)Ljava/nio/file/Path;</Item>
+                <Item type="boolean">false</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitVarInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">58</Item>
+                <Item type="int">3</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitVarInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">25</Item>
+                <Item type="int">2</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitVarInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">25</Item>
+                <Item type="int">1</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitVarInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">25</Item>
+                <Item type="int">3</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMethodInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">185</Item>
+                <Item type="string">java/nio/file/Path</Item>
+                <Item type="string">toFile</Item>
+                <Item type="string">()Ljava/io/File;</Item>
+                <Item type="boolean">true</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMethodInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">182</Item>
+                <Item type="string">java/io/File</Item>
+                <Item type="string">getAbsolutePath</Item>
+                <Item type="string">()Ljava/lang/String;</Item>
+                <Item type="boolean">false</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMethodInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">184</Item>
+                <Item type="string">edu/vt/middleware/jetty/ext/CompilingClassFactory</Item>
+                <Item type="string">compile</Item>
+                <Item type="string">(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V</Item>
+                <Item type="boolean">false</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitVarInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">25</Item>
+                <Item type="int">0</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitJumpInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">198</Item>
+                <Item ><Ref refid="l3"/></Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitTypeInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">187</Item>
+                <Item type="string">java/net/URLClassLoader</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">89</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">4</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitTypeInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">189</Item>
+                <Item type="string">java/net/URL</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">89</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">3</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitVarInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">25</Item>
+                <Item type="int">3</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMethodInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">185</Item>
+                <Item type="string">java/nio/file/Path</Item>
+                <Item type="string">toUri</Item>
+                <Item type="string">()Ljava/net/URI;</Item>
+                <Item type="boolean">true</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMethodInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">182</Item>
+                <Item type="string">java/net/URI</Item>
+                <Item type="string">toURL</Item>
+                <Item type="string">()Ljava/net/URL;</Item>
+                <Item type="boolean">false</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">83</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitVarInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">25</Item>
+                <Item type="int">0</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMethodInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">183</Item>
+                <Item type="string">java/net/URLClassLoader</Item>
+                <Item type="string">&lt;init&gt;</Item>
+                <Item type="string">([Ljava/net/URL;Ljava/lang/ClassLoader;)V</Item>
+                <Item type="boolean">false</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitVarInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">25</Item>
+                <Item type="int">1</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMethodInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">182</Item>
+                <Item type="string">java/net/URLClassLoader</Item>
+                <Item type="string">loadClass</Item>
+                <Item type="string">(Ljava/lang/String;)Ljava/lang/Class;</Item>
+                <Item type="boolean">false</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitLabel">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item ><Ref refid="l1"/></Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">176</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitLabel">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item ><Ref refid="l3"/></Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitFrame">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">1</Item>
+                <Item type="int">1</Item>
+                <Item>
+		  <Array type="java.lang.Object">
+                     <Item type="string">java/nio/file/Path</Item>
+	          </Array>
+	        </Item>
+                <Item type="int">0</Item>
+                <Item></Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitTypeInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">187</Item>
+                <Item type="string">java/net/URLClassLoader</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">89</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">4</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitTypeInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">189</Item>
+                <Item type="string">java/net/URL</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">89</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">3</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitVarInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">25</Item>
+                <Item type="int">3</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMethodInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">185</Item>
+                <Item type="string">java/nio/file/Path</Item>
+                <Item type="string">toUri</Item>
+                <Item type="string">()Ljava/net/URI;</Item>
+                <Item type="boolean">true</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMethodInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">182</Item>
+                <Item type="string">java/net/URI</Item>
+                <Item type="string">toURL</Item>
+                <Item type="string">()Ljava/net/URL;</Item>
+                <Item type="boolean">false</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">83</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMethodInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">183</Item>
+                <Item type="string">java/net/URLClassLoader</Item>
+                <Item type="string">&lt;init&gt;</Item>
+                <Item type="string">([Ljava/net/URL;)V</Item>
+                <Item type="boolean">false</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitVarInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">25</Item>
+                <Item type="int">1</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMethodInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">182</Item>
+                <Item type="string">java/net/URLClassLoader</Item>
+                <Item type="string">loadClass</Item>
+                <Item type="string">(Ljava/lang/String;)Ljava/lang/Class;</Item>
+                <Item type="boolean">false</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitLabel">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item ><Ref refid="l4"/></Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">176</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitLabel">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item ><Ref refid="l2"/></Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitFrame">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">0</Item>
+                <Item type="int">3</Item>
+		<Item>
+		  <Array type="java.lang.Object">
+                    <Item type="string">java/lang/ClassLoader</Item>
+                    <Item type="string">java/lang/String</Item>
+                    <Item type="string">java/lang/String</Item>
+	          </Array>
+		</Item>
+                <Item type="int">1</Item>
+                <Item>
+		  <Array type="java.lang.Object">
+                    <Item type="string">java/lang/Exception</Item>
+	          </Array>
+		</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitVarInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">58</Item>
+                <Item type="int">3</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitTypeInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">187</Item>
+                <Item type="string">java/lang/IllegalStateException</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">89</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitLdcInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="string">Could not load class</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitVarInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">25</Item>
+                <Item type="int">3</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMethodInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">183</Item>
+                <Item type="string">java/lang/IllegalStateException</Item>
+                <Item type="string">&lt;init&gt;</Item>
+                <Item type="string">(Ljava/lang/String;Ljava/lang/Throwable;)V</Item>
+                <Item type="boolean">false</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">191</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMaxs">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">6</Item>
+                <Item type="int">4</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitEnd">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+    </Call>
+</Ref>
+<!-- set methodwriter -->
+<Ref refid="cw">
+    <Call id="mw" name="visitMethod">
+        <Arg type="int">8</Arg>
+        <Arg type="string">&lt;clinit&gt;</Arg>
+        <Arg type="string">()V</Arg>
+        <Arg></Arg>
+        <Arg></Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitCode">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMethodInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">184</Item>
+                <Item type="string">javax/tools/ToolProvider</Item>
+                <Item type="string">getSystemJavaCompiler</Item>
+                <Item type="string">()Ljavax/tools/JavaCompiler;</Item>
+                <Item type="boolean">false</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitFieldInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">179</Item>
+                <Item type="string">edu/vt/middleware/jetty/ext/CompilingClassFactory</Item>
+                <Item type="string">compiler</Item>
+                <Item type="string">Ljavax/tools/JavaCompiler;</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitInsn">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">177</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitMaxs">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+        <Arg>
+            <Array type="java.lang.Object">
+                <Item type="int">1</Item>
+                <Item type="int">0</Item>
+            </Array>
+        </Arg>
+    </Call>
+</Ref>
+<Ref refid="mv.visitEnd">
+    <Call name="invoke">
+        <Arg>
+            <Ref refid="mw" />
+        </Arg>
+    </Call>
+</Ref>
+
+<!-- end class -->
+<Ref refid="cw">
+  <Call name="visitEnd">
+  </Call>
+</Ref>
+
+<!-- copy to byte array -->
+<Ref refid="cw">
+  <Call id="compilingClassFactoryBytes" name="toByteArray">
+  </Call>
+</Ref>
+
+
+
+<Call id="tempDir" class="java.nio.file.Files" name="createTempDirectory">
+ <Arg>tmp</Arg>
+ <Arg><Array type="java.nio.file.attribute.FileAttribute"></Array></Arg>
+</Call>
+
+<Ref refid="path.toFile">
+  <Call id="tempDirFile" name="invoke">
+    <Arg>
+      <Ref refid="tempDir"/>
+    </Arg>
+  </Call>
+</Ref>
+
+<Ref refid="path.toUri">
+  <Call id="tempDirUri" name="invoke">
+    <Arg>
+      <Ref refid="tempDir"/>
+    </Arg>
+  </Call>
+</Ref>
+
+<Ref refid="tempDirUri">
+  <Call id="tempDirUrl" name="toURL">
+  </Call>
+</Ref>
+
+<Ref refid="tempDirFile">
+  <Call id="tempDirAbsolute" name="getAbsolutePath">
+  </Call>
+</Ref>
+<Call id="createEnum" class="java.nio.file.StandardOpenOption" name="valueOf">
+ <Arg>CREATE</Arg>
+</Call>
+<Call id="truncateExistingEnum" class="java.nio.file.StandardOpenOption" name="valueOf">
+ <Arg>TRUNCATE_EXISTING</Arg>
+</Call>
+
+<Call id="defaultFileSystem" class="java.nio.file.FileSystems" name="getDefault"/>
+
+<Call id="classpathPath" class="java.nio.file.Paths" name="get">
+  <Arg><Ref refid="tempDirAbsolute"/></Arg>
+  <Arg>
+   <Array type="java.lang.String">
+     <Item>edu</Item>
+     <Item>vt</Item>
+     <Item>middleware</Item>
+     <Item>jetty</Item>
+     <Item>ext</Item>
+   </Array>
+ </Arg>
+</Call>
+
+<Call id="localJavaFileObjectPath" class="java.nio.file.Paths" name="get">
+  <Arg><Ref refid="tempDirAbsolute"/></Arg>
+  <Arg>
+   <Array type="java.lang.String">
+     <Item>edu</Item>
+     <Item>vt</Item>
+     <Item>middleware</Item>
+     <Item>jetty</Item>
+     <Item>ext</Item>
+     <Item>LocalJavaFileObject.class</Item>
+   </Array>
+ </Arg>
+</Call>
+
+<Call id="compilingClassFactoryPath" class="java.nio.file.Paths" name="get">
+  <Arg><Ref refid="tempDirAbsolute"/></Arg>
+  <Arg>
+   <Array type="java.lang.String">
+     <Item>edu</Item>
+     <Item>vt</Item>
+     <Item>middleware</Item>
+     <Item>jetty</Item>
+     <Item>ext</Item>
+     <Item>CompilingClassFactory.class</Item>
+   </Array>
+ </Arg>
+</Call>
+
+<Ref refid="path.toFile">
+  <Call id="tempClasspathFile" name="invoke">
+    <Arg>
+      <Ref refid="classpathPath"/>
+    </Arg>
+  </Call>
+</Ref>
+
+<!-- ensure directories exist in temp folder for classpath -->
+<Ref refid="tempClasspathFile">
+  <Call name="mkdirs" />
+</Ref>
+
+<!-- write classes to file -->
+<Call class="java.nio.file.Files" name="write">
+ <Arg><Ref refid="localJavaFileObjectPath"/></Arg>
+ <Arg><Ref refid="localJavaFileObject"/></Arg>
+ <Arg>
+   <Array type="java.nio.file.StandardOpenOption">
+     <Item><Ref refid="createEnum"/></Item>
+     <Item><Ref refid="truncateExistingEnum"/></Item>
+   </Array>
+ </Arg>
+</Call>
+<Call class="java.nio.file.Files" name="write">
+ <Arg><Ref refid="compilingClassFactoryPath"/></Arg>
+ <Arg><Ref refid="compilingClassFactoryBytes"/></Arg>
+ <Arg>
+   <Array type="java.nio.file.StandardOpenOption">
+     <Item><Ref refid="createEnum"/></Item>
+     <Item><Ref refid="truncateExistingEnum"/></Item>
+   </Array>
+ </Arg>
+</Call>
+<Call id="currentThread" class="java.lang.Thread" name="currentThread"/>
+<Ref refid="currentThread">
+  <Get id="contextClassLoader" name="contextClassLoader"/>
+</Ref>
+<New id="urlClassLoader" class="java.net.URLClassLoader">
+  <Arg>
+   <Array type="java.net.URL"><Item><Ref refid="tempDirUrl"/></Item></Array>
+  </Arg>
+  <Arg><Ref refid="contextClassLoader"/></Arg>
+</New>
+<!-- inject classloader into current thread -->
+<Ref refid="currentThread">
+  <Set name="contextClassLoader">
+    <Ref refid="urlClassLoader"/>
+  </Set>
+</Ref>
+
+
+</Configure>
